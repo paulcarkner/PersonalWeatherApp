@@ -1,0 +1,28 @@
+.forecastDaysContainer {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  gap: 0.3em;
+}
+
+.forecastDay {
+  display: grid;
+  grid-template-rows: auto;
+  gap: 0.3em;
+  text-align: center;
+}
+
+.pop {
+  font-size: 0.8em;
+  color: #eee;
+  height: 1.2em;
+}
+
+.high {
+  border-bottom: 1px solid #fff4;
+  padding-block: 0.3em;
+}
+
+.low {
+  color: #eee;
+  padding-block: 0.3em;
+}

@@ -1,0 +1,7 @@
+.backgroundMap {
+    position: absolute;
+    inset: 50% 0 0 0;
+    mask-image: radial-gradient(ellipse 75% 100% at bottom center, black 75%, transparent 99.5%, black 99.9%, transparent 100%);
+    mix-blend-mode: luminosity;
+    opacity: 0.3;
+}
