@@ -22,12 +22,26 @@ export default class LineChart extends React.Component {
         datasets: [
           {
             data: this.props.data.map((d) => d.y),
-            fill: false,
-            borderColor: "#fff8",
-            borderDash: [5, 5],
-            borderWidth: 2,
-            pointRadius: 0,
-            tension: 0.1,
+            //fill: false,
+            //borderColor: "#fff8",
+            //borderDash: [5, 5],
+            //borderWidth: 2,
+            //pointRadius: 0,
+            tension: 0.3,
+            segment: {
+              borderColor: function (context) {
+                const yVal = context.p1.parsed.y;
+                if (yVal >= 25) {
+                  return "red";
+                } else if (yVal <= 0) {
+                  return "blue";
+                } else if (yVal <= 0) {
+                  return "dark blue";
+                } else {
+                  return "gray";
+                }
+              },
+            },
           },
         ],
       },
@@ -45,7 +59,7 @@ export default class LineChart extends React.Component {
             display: false,
           },
           datalabels: {
-            color: "white",
+            //color: "white",
             clip: false,
             align: "top",
             offset: -2,
@@ -59,12 +73,12 @@ export default class LineChart extends React.Component {
         scales: {
           x: {
             grid: {
-              color: "#fff4",
+              //color: "green",
               drawBorder: false,
-              tickColor: "white",
+              //tickColor: "white",
             },
             ticks: {
-              color: "white",
+              //color: "white",
               callback: function (val, index) {
                 //hide the label of every 2nd dataset
                 return index % parseInt(major) === 0
@@ -74,9 +88,14 @@ export default class LineChart extends React.Component {
             },
           },
           y: {
-            display: false,
+            display: true,
             suggestedMin: parseInt(this.props.min),
             suggestedMax: parseInt(this.props.max),
+            ticks: {
+              major: {
+                enabled: true,
+              },
+            },
           },
         },
       },
@@ -94,6 +113,6 @@ export default class LineChart extends React.Component {
   }
 
   render() {
-    return <canvas className={Style.chart} ref={this.canvas} />;
+    return <canvas ref={this.canvas} height={this.props.height} />;
   }
 }

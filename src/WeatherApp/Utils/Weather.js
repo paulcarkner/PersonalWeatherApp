@@ -1,9 +1,9 @@
 const apiKey = "f4bcb6a805ca765f7df85383dc7fdbab"; //todo: hide in env, for demonstration only
 
 //get location-specific forecast from OpenWeatherMap.org
-export async function fetchForecast(lat, lon, exclude) {
+export async function fetchForecast(location, exclude) {
   return await fetch(
-    `https://api.openweathermap.org/data/3.0/onecall?exclude=${exclude}&lat=${lat}&lon=${lon}&appid=${apiKey}`
+    `https://api.openweathermap.org/data/3.0/onecall?exclude=${exclude}&lat=${location.lat}&lon=${location.lon}&appid=${apiKey}`,
   ).then((res) => res.json());
 }
 
@@ -14,7 +14,7 @@ export function processTemp(temp, decimals) {
 
 //convert UNIX time code to DateTime
 export function UNIXtoDateTime(unix, offset) {
-  return new Date((unix + offset + new Date().getTimezoneOffset() * 60) * 1000);
+  return new Date((unix + offset) * 1000);
 }
 
 //convert time to UTC
@@ -34,9 +34,9 @@ export function getWeatherStyle(time, sunrise, sunset, cloud) {
   let sunPercent = isDaylight //if day time
     ? (time - sunrise) / (sunset - sunrise) //percentage of way through day
     : time < sunrise //else, if before sunrise
-    ? (time - new Date(sunset - 24 * 60 * 60 * 1000)) /
-      (sunrise - new Date(sunset - 24 * 60 * 60 * 1000)) //percentage of way between yesterday's sunset and sunrise
-    : (time - sunset) / (new Date(sunrise + 24 * 60 * 60 * 1000) - sunset); //else, percentage of way between sunset and tomorrow's sunrise
+      ? (time - new Date(sunset - 24 * 60 * 60 * 1000)) /
+        (sunrise - new Date(sunset - 24 * 60 * 60 * 1000)) //percentage of way between yesterday's sunset and sunrise
+      : (time - sunset) / (new Date(sunrise + 24 * 60 * 60 * 1000) - sunset); //else, percentage of way between sunset and tomorrow's sunrise
   sunPercent = Math.floor(sunPercent * 10); //convert percentage to 0-9 index for arrays
   return {
     sun: {

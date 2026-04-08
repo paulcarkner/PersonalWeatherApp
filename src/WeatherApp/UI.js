@@ -1,26 +1,33 @@
 import React from "react";
-import LocationList from "./LocationList";
-import ForecastContainer from "./ForecastContainer";
+import Forecast from "./Forecast";
 
 export default class UI extends React.Component {
   render() {
+    setTimeout(
+      () => {
+        window.location.reload();
+      },
+      1000 * 60 * 60,
+    );
     return (
       <div>
-        <LocationList
-          storedLocations={this.props.storedLocations}
-          handleLocationChange={this.props.handleLocationChange}
-          locationModalRef={this.props.locationModalRef}
-        />
         {this.props.weather ? ( //don't render until weather data has been loaded
-          <ForecastContainer
+          <Forecast
             location={this.props.location}
             weather={this.props.weather}
-            style={this.props.style}
-            handleRemoveLocation={this.props.handleRemoveLocation}
           />
         ) : (
-          <div></div>
+          <div>Loading...</div>
         )}
+        <footer
+          style={{
+            marginTop: "3em",
+            fontSize: "0.8em",
+            color: "#aaab",
+          }}
+        >
+          Page loaded: {new Date().toLocaleTimeString()}
+        </footer>
       </div>
     );
   }

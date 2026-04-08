@@ -8,9 +8,12 @@ export default class WeatherTemp extends React.Component {
     return this.props.temp == null ? ( //if no temperature data given show empty
       <div></div>
     ) : (
-      <div>
-        {processTemp(this.props.temp, this.props.decimals)}{/* convert to decimal string */}
-        <span className={`${Style.unit} ${Icons['diw']} ${Icons['diw-degrees-celcius']}`}></span>
+      <div className={Style.temp}>
+        {processTemp(this.props.temp, this.props.decimals)}
+        {/* convert to decimal string */}
+        <span
+          className={`${Style.unit} ${Icons["diw"]} ${Icons["diw-degrees-celcius"]}`}
+        ></span>
       </div>
     );
   }
